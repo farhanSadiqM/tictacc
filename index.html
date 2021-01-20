@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="../../kit.fontawesome.com/9f927ae63d.js" crossorigin="anonymous"></script>
+
+    <Style>
+        :root {
+    --size: 10rem;
+    --color: #37f;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #eae1e1;
+    font-family: Sans-Serif;
+    padding: 5rem 0;
+}
+
+.nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70%;
+    margin-bottom: 10rem;
+    font-size: 3rem;
+    color: #fff;
+}
+
+.switch {
+    background: var(--color);
+    border-radius: 50%;
+}
+
+.nav .fa-robot {
+    padding: 1.8rem 1.5rem;
+}
+
+.nav .fa-user {
+    padding: 1.5rem 1.8rem;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+
+.box {
+    width: var(--size);
+    height: var(--size);
+    border: 0.1rem solid var(--color);
+    position: relative;
+}
+
+.box:nth-child(1),
+.box:nth-child(2),
+.box:nth-child(3) {
+    border-top: none;
+}
+
+.box:nth-child(1),
+.box:nth-child(4),
+.box:nth-child(7) {
+    border-left: none;
+}
+
+.box:nth-child(7),
+.box:nth-child(8),
+.box:nth-child(9) {
+    border-bottom: none;
+}
+
+.box:nth-child(3),
+.box:nth-child(6),
+.box:nth-child(9) {
+    border-right: none;
+}
+
+.board {
+    position: relative;
+}
+
+.board.x .box:hover:not(.x):not(.o)::after,
+.board.x .box:hover:not(.x):not(.o)::before {
+    content: '';
+    position: absolute;
+    width: calc(var(--size) * 0.18);
+    height: 90%;
+    left: 50%;
+    top: 50%;
+    background: #c4c4c4;
+}
+
+.board.x .box:hover:not(.x):not(.o)::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.board.x .box:hover:not(.x):not(.o)::after {
+    transform: translate(-50%, -50%) rotate(135deg);
+}
+
+.board.o .box:hover:not(.x):not(.o)::after,
+.board.o .box:hover:not(.x):not(.o)::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.board.o .box:hover:not(.x):not(.o)::before {
+    width: 90%;
+    height: 90%;
+    background: #c4c4c4;
+}
+
+.board.o .box:hover:not(.x):not(.o)::after {
+    width: 60%;
+    height: 60%;
+    background: #eae1e1;
+}
+
+.box.x::after,
+.box.x::before {
+    content: '';
+    position: absolute;
+    width: calc(var(--size) * 0.18);
+    height: 90%;
+    left: 50%;
+    top: 50%;
+    background: #000;
+}
+
+.box.x::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.box.x::after {
+    transform: translate(-50%, -50%) rotate(135deg);
+}
+
+.box.o::after,
+.box.o::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.box::before {
+    width: 90%;
+    height: 90%;
+    background: #000;
+}
+
+.box::after {
+    width: 60%;
+    height: 60%;
+    background: #eae1e1;
+
+}
+
+
+.btn {
+    font-size: 2rem;
+    margin-top: 5rem;
+    text-transform: uppercase;
+    padding: 1rem 5rem;
+    background: var(--color);
+    border: none;
+    color: #fff;
+    border-radius: 1rem;
+    animation: btnanim 1s infinite;
+}
+
+@keyframes btnanim {
+    0% {
+        transform: translateX(-1rem);
+    }
+
+    50% {
+        transform: translateX(1rem);
+    }
+
+    100% {
+        transform: translateX(-1rem);
+    }
+}
+
+.msg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: var(--color);
+    color: #fff;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+.msg-txt {
+    font-size: 5rem;
+    margin-bottom: 10rem;
+    text-transform: uppercase;
+}
+
+.msg-btn {
+    font-size: 2rem;
+    text-transform: uppercase;
+    padding: 1rem;
+    width: 20rem;
+    background: #000;
+    border-radius: 1rem;
+    border: none;
+    color: #fff;
+}
+
+.credit {
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+    font-size: 2rem;
+    text-transform: uppercase;
+    font-family: sans-serif;
+}
+
+.credit a {
+    color: var(--color);
+}
+
+.show {
+    display: flex !important;
+}
+
+@media (max-width: 425px) {
+    :root {
+        --size: 8rem;
+    }
+
+    html {
+        font-size: 50%;
+    }
+}
+
+@media (max-width: 300px) {
+    :root {
+        --size: 7rem;
+    }
+
+    html {
+        font-size: 45.5%;
+    }
+}
+
+    </Style>
+    <title>TikTacToe</title>
+</head>
+
+<body onload="startGame()">
+    <nav class="nav">
+        <div class="switch" onclick="changeMode()"><i class="fas fa-user"></i></div>
+    </nav>
+    <main class="container board">
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+    </main>
+
+    <button class="btn">X's Turn</button>
+    <span class="credit">Made With Love By <a href="https://www.facebook.com/farhan.sadiq.9822/" class="link" target="_blank">Farhan Sadiq</a></span>
+    <div class="msg show">
+        <b class="msg-txt">Lets Play</b>
+        <button class="msg-btn" onclick="startGame()">Continue</button>
+    </div>
+    <script>
+        //SELECTING ELEMENT FROM HTML
+var switchIcn, board, box;
+switchIcn = document.querySelector('.switch');
+board = document.querySelector('.board');
+box = document.querySelectorAll('.box');
+
+var msg, msgTxt, msgBtn;
+msg = document.querySelector('.msg');
+msgTxt = document.querySelector('.msg-txt');
+msgBtn = document.querySelector('.msg-btn');
+//STORING USABLE CONDITIONS AND DATA
+var matchCombine = [
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8],
+
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8],
+
+  [0, 4, 8],
+  [2, 4, 6]
+  ];
+var playWithComputer = false;
+var turn = true;
+var x = 'x';
+var o = 'o';
+
+//STARTING AND RESETING FUNCTION
+function startGame() {
+    //    IT WILL EXCUTE IF USER WANTS TO PLAY WITH COMPUTER
+    if (playWithComputer) {
+        box.forEach(cell => {
+            //DELETING ALL PREVIOUS CLASS FROM ALL CELL
+            cell.classList.remove(x);
+            cell.classList.remove(o);
+            cell.removeEventListener('click', customPlayers); //REMOVING CUSTOM PLAYER FUNCTION FROM ALL CELL
+            cell.addEventListener('click', player); //ADDING PLAYER FUNCTION IN ALL CELL
+        })
+        if (!turn) {
+            computer();
+        }
+    } else {
+        box.forEach(cell => {
+            //DELETING ALL PREVIOUS CLASS FROM ALL CELL
+            cell.classList.remove(x);
+            cell.classList.remove(o);
+            cell.removeEventListener('click', player); //REMOVING PLAYER FUNCTION FROM ALL CELL
+            cell.addEventListener('click', customPlayers, {
+                once: true
+            }); //ADDING CUSTOM PLAYER FUNCTION IN ALL CELL AND IT WILL EXCUTE ONCE
+        })
+    }
+    update()
+    msgBox()
+}
+
+//CHANGING MODE AND THE THEME COLOR OF WEBSITE
+function changeMode() {
+    if (switchIcn.classList.contains('bot')) {
+        switchIcn.classList.remove('bot');
+        switchIcn.classList.add('custom');
+        switchIcn.innerHTML = '<i class="fas fa-user" ></i>';
+        document.documentElement.style.setProperty('--color', '#37f')
+        playWithComputer = false;
+    } else {
+
+        switchIcn.classList.add('bot');
+        switchIcn.classList.remove('custom');
+        switchIcn.innerHTML = '<i class="fas fa-robot" ></i>';
+        document.documentElement.style.setProperty('--color', '#ff2525')
+        playWithComputer = true;
+    }
+
+    //RESTEING GAME AND MAKING MSG BOX VISIBLE FOR ONCE CAUSE WHEN GAME WAS RESET THE MSG BOX WILL AUTOMATICLLY INVISIBLE
+    msgBox()
+    startGame()
+}
+
+function player(e) {
+    //    CHECKING THE TURN FOR PLAYER
+    if (turn) {
+        var item = e.target;
+        if ((!item.classList.contains(o)) && (!item.classList.contains(x))) {
+            item.classList.add(x);
+            // CHECKING X FOR WINNING OR DRAW
+            check(x)
+            // UPADTING TURN
+            turn = false;
+            update()
+            setTimeout(computer, 500);
+        }
+    }
+}
+
+
+function computer() {
+    if (isDraw() || checkWinner(x)) {
+        return;
+    } else if (!turn) {
+        var autoIndex = Math.floor(Math.random() * box.length);
+        if ((!box[autoIndex].classList.contains(x)) && (!box[autoIndex].classList.contains(o))) {
+            box[autoIndex].classList.add(o);
+            // CHECKING O FOR WINNING OR DRAW
+            check(o);
+            // UPADTING TURN
+            turn = true;
+            update()
+        } else {
+            computer()
+        }
+    }
+}
+
+
+function customPlayers(e) {
+    if (!playWithComputer) {
+        let item = e.target;
+        var mark = (turn) ? x : o;
+        item.classList.add(mark);
+        // CHECKING FOR WINNING OR DRAW
+        check(mark)
+        // UPADTING TURN
+        turn = (turn) ? false : true;
+        update()
+    }
+}
+
+function check(who) {
+    if (checkWinner(who)) {
+        msgTxt.innerHTML = who + ' Wins';
+        msgBox()
+    } else if (isDraw()) {
+        msgTxt.innerHTML = 'Draw';
+        msgBox()
+    }
+}
+
+function checkWinner(who) {
+    // CHECKING FOR X OR O CLASS THAT AR THEY IN THE WHENING CONDITION INDEX
+    return matchCombine.some(cond => {
+        return cond.every(index => {
+            return box[index].classList.contains(who);
+        });
+    });
+}
+
+function isDraw() {
+    // CHECKING THAT IS ALL CELL ARE HAVE X OR O CLASS
+    return [...box].every(place => {
+        return place.classList.contains(x) || place.classList.contains(o);
+    })
+}
+
+function msgBox() {
+    if (msg.classList.contains('show')) {
+        msg.classList.remove('show');
+    } else {
+        msg.classList.add('show');
+    }
+}
+
+function update() {
+    var turnbtn = document.querySelector('.btn');
+    if (turn) {
+        turnbtn.innerHTML = x + "'S TURN";
+    } else {
+        turnbtn.innerHTML = o + "'S TURN";
+    }
+}
+
+    </script>
+</body>
+</html>
